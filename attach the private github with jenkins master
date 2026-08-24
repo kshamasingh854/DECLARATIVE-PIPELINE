@@ -1,0 +1,69 @@
+that's okay. 
+GitHub may show “Settings → Deploy keys” only if you have admin/owner permission on that repository.
+
+Since you said it's your private GitHub account, let's use a simpler method: GitHub Personal Access Token (PAT) + Jenkins. This works even when Deploy Keys isn't available.
+
+Step 1 — Create GitHub token
+
+GitHub:
+
+Profile picture → Settings → Developer settings → Personal access tokens → Tokens (classic) → Generate new token
+
+Select:
+
+repo
+
+Then click Generate token.
+
+Copy the token immediately. It starts something like:
+
+ghp_xxxxxxxxxxxxxxxxxxxxx
+Step 2 — Add token to Jenkins
+
+Go to:
+
+Jenkins → Manage Jenkins → Credentials → System → Global credentials → Add Credentials
+
+Select:
+
+Kind: Username with password
+
+Username: YOUR_GITHUB_USERNAME
+
+Password: YOUR_GITHUB_TOKEN
+
+ID: github-private
+
+Click Create.
+
+Step 3 — Use your private repository
+
+Use your normal HTTPS repository URL:
+
+https://github.com/YOUR_USERNAME/YOUR_PRIVATE_REPO.git
+
+Jenkins Pipeline:
+
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git(
+                    branch: 'main',
+                    credentialsId: 'github-private',
+                    url: 'https://github.com/YOUR_USERNAME/YOUR_PRIVATE_REPO.git'
+                )
+            }
+        }
+
+        stage('Test') {
+            steps {
+                sh 'ls -la'
+            }
+        }
+    }
+}
+
+#build
