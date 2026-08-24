@@ -1,0 +1,109 @@
+Yes. If you want to use the Jenkins Shared Library from a Jenkins Pipeline, use this setup.
+
+1. Shared Library GitHub repo
+
+Private repo:
+
+jenkins-shared-library/
+└── vars/
+    └── hello.groovy
+
+vars/hello.groovy:
+
+def call() {
+    echo "Hello from Jenkins Shared Library!"
+}
+
+2. Jenkinsfile in your application repo
+@Library('Shared') _
+
+pipeline {
+    agent any
+
+    stages {
+
+        stage('Checkout') {
+            steps {
+                git(
+                    branch: 'main',
+                    credentialsId: 'github-private',
+                    url: 'https://github.com/YOUR_USERNAME/YOUR_APP_REPO.git'
+                )
+            }
+        }
+
+        stage('Shared Library Test') {
+            steps {
+                hello()
+            }
+        }
+
+        stage('Build') {
+            steps {
+                sh 'echo "Building application..."'
+            }
+        }
+    }
+}
+
+Replace:
+
+YOUR_USERNAME
+YOUR_APP_REPO
+3. Important: Configure Shared
+
+In Jenkins:
+
+Manage Jenkins → System → Global Pipeline Libraries → Add
+
+Set:
+
+Name: Shared
+Default version: main
+
+Then configure your private GitHub repository:
+
+Repository:
+https://github.com/YOUR_USERNAME/jenkins-shared-library.git
+
+Select your GitHub credential:
+
+github-private
+
+Save.
+
+4. Your pipeline syntax
+
+The first line must be exactly:
+
+@Library('Shared') _
+
+Not:
+
+@Library("Shared") -
+
+Not:
+
+@Library("Shared")
+
+The _ is required when loading the library globally.
+
+If you want to load the library directly from Pipeline
+
+You can also use:
+
+@Library('Shared@main') _
+
+pipeline {
+    agent any
+
+    stages {
+        stage('Test') {
+            steps {
+                hello()
+            }
+        }
+    }
+}
+
+This tells Jenkins to use the main version of your Shared library.
