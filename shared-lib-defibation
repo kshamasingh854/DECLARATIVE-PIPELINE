@@ -1,0 +1,17 @@
+*SHARED LIBRARY  (in library has one in repository has grooby code, we can use that code in our pipeline)
+* CEATE NEW REPOSItiry in GitHub - add one folder in repo- crate share repo name- (hello.grroy)
+
+in Jenkins - manage jenkins- system - global tristed pipeline libraries
+
+
+ * create one repository on GitHub
+#shared-library/vars/<file_name.groovy>
+def call(){
+echo hello dosto
+}
+
+commit
+
+* go to manage Jenkins - System - search <Global Trusted Pipeline Libraries> - name<Shared> - version<main> -- sourcecode - git <url>  save
+
+*GO TO PIPELIN
