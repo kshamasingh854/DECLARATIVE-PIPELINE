@@ -1,0 +1,66 @@
+* Declrative pipeline
+*pipeline{}
+agen
+stages
+stage
+steps
+
+* plungin - pipeline stage view
+
+
+
+(After create agent and now we run through the agent)
+
+*DICLARATIVE PIPELINE
+
+pipeline{
+    agent { label 'kshsingh' }
+    
+    stages{
+        stage("Code"){
+          steps{
+              echo "This is cloning the code"
+              git url: "https://github.com/LondheShubham153/django-notes-app.git", branch: "main"
+              echo "Code cloning successfull"
+          }  
+        }
+        stage("Build"){
+           steps{
+               echo "This is buikding the code"
+           }     
+        }
+        stage("Test"){
+              steps{
+                  echo "This is testing the code"
+              }  
+        }
+        stage("Deploy"){
+            steps{
+                echo "This is Deploying the code"
+            }    
+        }
+    }
+
+
+* Build the code through docker
+*install docker on node(on agent)
+#apt-get install docker.io
+#sudo usermod -aG docker $USER && newgrp docker
+
+* FOR THE PUSH IMAGE ON DOCKER HUB NEED TO CREATE (personal Token Access*
+GO TO ACCOUNT - Aaccount setting - persnal-account setting- create - 
+
+* then you need to add that toker id and passwdd add in - (Jenkins *Credenti
+
+* FOR THE WEBHOOT TRIGGER, YOU NEED TO CREATE WEBHHOK CREDENTILAL ON GITHUB SHOUD BE CONNECTED WITH JENMINS SERVEER SUCCESSFULLY.
+
+
+
+*SHARED LIBRARY  (in library has one in repository has grooby code, we can use that code in our pipeline)
+* CEATE NEW REPOSItiry in GitHub - add one folder in repo- crate share repo name- (hello.grroy)
+
+in Jenkins - manage jenkins- system - global tristed pipeline libraries
+
+
+*
+ 
