@@ -1,0 +1,28 @@
+@Library('Shared') _
+pipeline {
+    agent {
+        label ('kshsingh')
+    }
+    
+    stages {
+        stage('Shared Library Test') {
+            steps {
+                hello()
+            }
+        } 
+        
+        stage("Chcekout") {
+            steps{
+                    git branch: 'main',
+                    credentialsId: 'github-private',
+                    url: 'https://github.com/kshamasingh854/django-notes-app.git'           
+            }
+        }
+        stage("Build") {
+            steps {
+                echo "this will test the code"
+                sh 'docker build -t django-notes-app:latest .'
+            }
+        }
+    }
+}
