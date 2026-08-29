@@ -1,0 +1,15 @@
+#vi /var/lib/pgsql/data/postgresql.conf
+password_encryption = md5
+
+Your final configuration should be
+postgresql.conf:
+
+password_encryption = scram-sha-256
+
+and:
+
+pg_hba.conf:
+
+local   all   all                     peer
+host    all   all   127.0.0.1/32      scram-sha-256
+host    all   all   ::1/128           scram-sha-256
