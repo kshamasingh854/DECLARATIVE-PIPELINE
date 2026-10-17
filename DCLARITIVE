@@ -20,7 +20,7 @@ pipeline{
         stage("Code"){
           steps{
               echo "This is cloning the code"
-              git url: "https://github.com/LondheShubham153/django-notes-app.git", branch: "main"
+              git url: "https://github.com/kshamasingh854/DICLARITUVE-PIPELINE.git", branch: "main"
               echo "Code cloning successfull"
           }  
         }
