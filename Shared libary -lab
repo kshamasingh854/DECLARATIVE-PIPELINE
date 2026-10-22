@@ -1,4 +1,4 @@
-Yes. If you want to use the Jenkins Shared Library from a Jenkins Pipeline, use this setup.
+If you want to use the Jenkins Shared Library from a Jenkins Pipeline, use this setup.
 
 1. Shared Library GitHub repo
 
@@ -77,14 +77,6 @@ Save.
 The first line must be exactly:
 
 @Library('Shared') _
-
-Not:
-
-@Library("Shared") -
-
-Not:
-
-@Library("Shared")
 
 The _ is required when loading the library globally.
 
