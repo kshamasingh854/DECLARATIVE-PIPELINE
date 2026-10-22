@@ -15,20 +15,20 @@ pipeline{
         stage("Code"){
           steps{
               echo "This is cloning the code"
-              git url: "https://github.com/LondheShubham153/django-notes-app.git", branch: "main"
+              git url: "'https://github.com/kshamasingh854/django-notes-app.git", branch: "main"
               echo "Code cloning successfull"
           }  
         }
         stage("Build"){
            steps{
-               echo "This is buikding the code"
+               echo "This is for build the code"
                sh "docker build -t notes-app:latest ."
                sh "whoami"
            }     
         }
         stage("Push to docker hub"){
               steps{
-                  echo "This is testing the code"
+                  echo "This is push the code"
                   withCredentials([usernamePassword('credentialsId': "docker-passwd", 
                   passwordVariable: "dockerHubPass", usernameVariable:"dockerHubUser")]){
                   sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPass}"
@@ -39,7 +39,7 @@ pipeline{
         }
         stage("Deploy"){
             steps{
-                echo "This is Deploying the code"
+                echo "This is for Deploy the code"
             }    
         }
     }
